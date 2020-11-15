@@ -8,7 +8,7 @@ HERE = pathlib.Path(__file__).parent
 
 setup(
   name = NAME,
-  # packages = ['NAME'],
+  packages = [NAME],
   version = __version__,
   license='MIT',
   description = 'Desktop automation tools for managing common tasks such as renaming media files and making backups, as well as interacting with Adobe Premiere Pro using the `Pymiere` library (Windows only).',
