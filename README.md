@@ -1,4 +1,3 @@
-# `AWSOMdesktop`
 ![Amazing Ways to Search and Organise Media](https://github.com/PFython/AWSOMdesktop/blob/main/logo.png)
 
 ## 1. OVERVIEW
