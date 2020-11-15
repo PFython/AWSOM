@@ -5,8 +5,6 @@ from AWSOMdesktop import __version__
 from AWSOMdesktop import __name__
 
 HERE = pathlib.Path(__file__).parent
-README = (HERE / "README.md").read_text()
-
 
 setup(
   name = '__name__',
@@ -14,12 +12,12 @@ setup(
   version = __version__,
   license='MIT',
   description = 'A data structure which allows both object attributes and dictionary keys and values to be used simultaneously and interchangeably.',
-  long_description=README,
+  long_description=(HERE / "README.md").read_text(),
   long_description_content_type="text/markdown",
   author = 'Peter Fison',
   author_email = 'peter@southwestlondon.tv',
   url = f'https://github.com/pfython/{__name__}',
-  download_url = f'https://github.com/pfython/{__name__}/archive/v_0.1.tar.gz',
+  download_url = f'{url}/archive/v_{__version__}.tar.gz',
   keywords = [__name__, "search", "video", "audio", "media", "AWSOM", "TV", "content", "manage", "organise", "organize", "Premiere", "Adobe", "Pymiere", "YouTube", "metadata", "workflow", "automation", "Creative Cloud", "edit", "editor", "editing"],
   install_requires=['cleverdict'],
   classifiers=[
