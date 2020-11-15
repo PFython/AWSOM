@@ -1,11 +1,12 @@
 # AWSOMdesktop
-Desktop Tools for AWSOM (Amazing Ways to Search and Organise Media)
+![Amazing Ways to Search and Organise Media](https://github.com/PFython/AWSOMdesktop/blob/main/logo.png)
 
 ## 1. OVERVIEW
 
-`AWSOMdesktop` is a collection of automation tools originally developed by
-Peter Fison (https://github.com/PFython) for use at South West London TV Ltd
-as part of their Adobe Creative Cloud video production workflow.
+`AWSOMdesktop` is a collection of automation tools written in Python and
+originally developed by Peter Fison (https://github.com/PFython) for use
+at South West London TV Ltd as part of their Adobe Creative Cloud video
+production workflow.
 
 These desktop tools are part of a larger suite of apps collectively known as
 "AWSOM" collection which stands for:
