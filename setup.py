@@ -1,8 +1,8 @@
 import pathlib
 from setuptools import setup
 # from distutils.core import setup
-from awsomdesktop import __version__
-from awsomdesktop import __name__
+from AWSOMdesktop import __version__
+from AWSOMdesktop import __name__
 
 HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()

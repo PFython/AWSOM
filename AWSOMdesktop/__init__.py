@@ -1,4 +1,4 @@
 # __init__.py
 
-from .awsomdesktop import *
-from .awsomdesktop import __version__
+from .AWSOMdesktop import *
+from .AWSOMdesktop import __version__

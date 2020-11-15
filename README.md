@@ -1,8 +1,8 @@
-![Amazing Ways to Search and Organise Media](https://github.com/PFython/awsomdesktop/blob/main/logo.png)
+![Amazing Ways to Search and Organise Media](https://github.com/PFython/AWSOMdesktop/blob/main/logo.png)
 
 ## 1. OVERVIEW
 
-`awsomdesktop` is a collection of automation tools written in Python and
+`AWSOMdesktop` is a collection of automation tools written in Python and
 originally developed by Peter Fison (https://github.com/PFython) for use at
 South West London TV Ltd as part of their Adobe Creative Cloud video production
 workflow.
@@ -25,7 +25,7 @@ on Twitter and start a conversation:
 
 > https://twitter.com/AppAwsom
 
-Both `awsomdesktop` and a snazzy new web version we hope to launch soon provide a
+Both `AWSOMdesktop` and a snazzy new web version we hope to launch soon provide a
 tonne of powerful features completely free, but additional 'Pro' features like
 Automatic Speech Recognitio/Subtitling use third party services and may require
 a registered account with us or them to access on a pay-per-use basis.
@@ -35,17 +35,17 @@ a registered account with us or them to access on a pay-per-use basis.
 
 Very lightweight with only two dependencies (`cleverdict` and `pymiere`):
 
-    pip install awsomdesktop
+    pip install AWSOMdesktop
 
 or to cover all bases...
 
-    python -m pip install awsomdesktop --upgrade --user
+    python -m pip install AWSOMdesktop --upgrade --user
 
 ## 3. BASIC USE
 
 ## 10. UNDER THE BONNET
 
-`awsomdesktop` makes use of `CleverDict`, a handy custom data type which allows
+`AWSOMdesktop` makes use of `CleverDict`, a handy custom data type which allows
 developers to flexibly switch between Python dictionary `{key: value}` notation
 and `object.attribute` notation.  For more information about `CleverDict` see:
 https://pypi.org/project/cleverdict/
