@@ -8,9 +8,8 @@ South West London TV Ltd as part of their Adobe Creative Cloud video production
 workflow.
 
 These desktop tools contained in this package are part of a larger suite of apps
-collectively known as **AWSOM**, which stands for:
-
-**A**mazing **W**ays to **S**earch and **O**rganise **M**edia.
+collectively known as **AWSOM**, which stands for:  **A**mazing **W**ays to
+**S**earch and **O**rganise **M**edia.
 
 This package contains a mixture of OS-independent Python scripts for managing
 common automation tasks such as renaming media files and making backups, as well
