@@ -7,7 +7,7 @@ URL = f'https://github.com/pfython/{NAME}'
 HERE = pathlib.Path(__file__).parent
 
 setup(
-  name = 'NAME',
+  name = NAME,
   # packages = ['NAME'],
   version = __version__,
   license='MIT',
