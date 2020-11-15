@@ -1,8 +1,8 @@
 import pathlib
 from setuptools import setup
 # from distutils.core import setup
-from AWSOMdesktop import __version__
-from AWSOMdesktop import __name__
+from awsomdesktop import __version__
+from awsomdesktop import __name__
 
 HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
@@ -20,7 +20,7 @@ setup(
   author_email = 'peter@southwestlondon.tv',
   url = f'https://github.com/pfython/{__name__}',
   download_url = f'https://github.com/pfython/{__name__}/archive/v_0.1.tar.gz',
-  keywords = [__name__, "search", "video", "audio", "media", "AWSOM", "TV", "content", "manage", "organise", "organize", "Premiere", "Adobe", "Pymiere", "YouTube", "metadata", "workflow", "automation"],
+  keywords = [__name__, "search", "video", "audio", "media", "AWSOM", "TV", "content", "manage", "organise", "organize", "Premiere", "Adobe", "Pymiere", "YouTube", "metadata", "workflow", "automation", "Creative Cloud", "edit", "editor", "editing"],
   install_requires=['cleverdict'],
   classifiers=[
     'Development Status :: 4 - Beta',

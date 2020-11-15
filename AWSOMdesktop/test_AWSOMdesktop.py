@@ -1,4 +1,4 @@
-from AWSOMdesktop import *
+from awsomdesktop import *
 import pytest
 import os
 from collections import UserDict
