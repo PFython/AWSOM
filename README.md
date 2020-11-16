@@ -48,7 +48,7 @@ or to cover all bases...
     import AWSOM
     AWSOM.ingest(from_device=True)
     ```
-2. Follow the (beautiful PySimpleGui) prompts to give your project a name and category/prefix, and point it to a template `.prproj` file to copy from.
+2. Follow the (beautiful `PySimpleGui`) prompts to give your project a name and category/prefix, and point it to a template `.prproj` file to copy from.
 
    ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup1.png)
    
