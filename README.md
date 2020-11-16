@@ -95,7 +95,7 @@ Please join our virtual team if you have an interest in video editing, productio
 Our preferred process for onboarding new contributors is as follows:
 
 1. Say hello to us on [Twitter](https://twitter.com/AppAwsom) initially so we can "put a face to the name".
-2. Fork this repository.  Also **star** the repository for bonus karma!
+2. Fork this repository.  Also **STAR** this repository for bonus karma!
 3. Create new branches with the following standardised names as required:
    * `cosmetic`: for reformatting and changes to comments, README, or user input/output e.g. print(), input() and GUI.
    * `enhancements`: for new features and extensions to old features
