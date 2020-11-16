@@ -1,4 +1,4 @@
-![Amazing Ways to Search and Organise Media](https://raw.githubusercontent.com/PFython/AWSOMdesktop/main/logo.png)
+![Amazing Ways to Search and Organise Media](https://raw.githubusercontent.com/PFython/AWSOM-PyPi/main/logo.png)
 
 ## 1. OVERVIEW
 
