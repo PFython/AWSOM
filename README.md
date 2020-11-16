@@ -40,7 +40,7 @@ or to cover all bases...
     python -m pip install AWSOM --upgrade --user
 
 ## 3. BASIC USE
-`AWSOM` currently supports XDCAM footage (commonly used with Sony video cameras).  More formats will be added soon, or feel free to get involved and contribute one!
+`AWSOM` currently supports Sony's commonly used XDCAM format.  More formats will be added soon, or feel free to get involved and contribute one!
 
 1. Connect and power on your camera/storage device
 
