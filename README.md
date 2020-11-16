@@ -42,7 +42,7 @@ or to cover all bases...
 ## 3. BASIC USE
 `AWSOM` currently supports Sony's commonly used XDCAM format.  More formats will be added soon, or feel free to get involved and contribute one!
 
-1. Connect and power on your camera/storage device, then open up your Python interpretter/IDE:
+1. Connect and power on your camera/storage device, then open up your Python interpreter/IDE:
 
     ```
     import AWSOM
