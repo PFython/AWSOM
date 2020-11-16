@@ -23,8 +23,6 @@ and start a conversation:
 
 https://twitter.com/AppAwsom
 
-
-
 Both this package and a snazzy new web version of `AWSOM` which we hope to launch soon provide a
 tonne of powerful features completely free, but certain 'Pro' features like
 Automatic Speech Recognition/Subtitling use third party services and may require
