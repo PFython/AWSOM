@@ -3,15 +3,16 @@
 ## 1. OVERVIEW
 
 `AWSOM` stands for: **A**mazing **W**ays to **S**earch and **O**rganise
-**M**edia.  `AWSOM` is a media automation toolkit, created by [Peter Fison](https://github.com/PFython) in an effort to automate the Adobe Creative Cloud
-video production workflow at [South West London TV]("https://www.southwestlondon.tv").
+**M**edia.  `AWSOM` is a media automation toolkit, originally intended to
+automate the Adobe Creative Cloud video production workflow at
+[South West London TV]("https://www.southwestlondon.tv").
 
 This Python package contains a mixture of OS-independent Python scripts for managing
 common automation tasks such as renaming media files and making backups, as well
 as some exciting desktop automations built on top of the superb `Pymiere` library by
 [Quentin Masingarbe](https://github.com/qmasingarbe/pymiere).  Unfortunately
-`Pymiere` currently only works on **Windows 10**, so the corresponding `AWSOM` automations are limited
-to Windows users as well (for now).
+`Pymiere` currently only works on **Windows 10**, so the corresponding `AWSOM`
+automations are limited to Windows users as well (for now).
 
 If you're interested in exploring the rest of the **AWSOM** toolkit, which is
 primarily aimed at serious YouTubers, video editors, and power-users of online
@@ -22,7 +23,7 @@ on Twitter and start a conversation:
 
 Both this package and a snazzy new web version of `AWSOM` which we hope to launch soon provide a
 tonne of powerful features completely free, but certain 'Pro' features like
-Automatic Speech Recognitio/Subtitling use third party services and may require
+Automatic Speech Recognition/Subtitling use third party services and may require
 a registered account with us or them to access on a pay-per-use basis.
 
 
