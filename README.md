@@ -5,7 +5,7 @@
 `AWSOM` stands for: **A**mazing **W**ays to **S**earch and **O**rganise
 **M**edia.  `AWSOM` is a media automation toolkit, originally intended to
 automate the Adobe Creative Cloud video production workflow at
-[South West London TV]("https://www.southwestlondon.tv").
+[South West London TV](https://www.southwestlondon.tv).
 
 This Python package contains a mixture of OS-independent Python scripts for managing
 common (desktop/LAN) automation tasks such as renaming media files and making backups, as well
