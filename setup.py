@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 NAME = "AWSOM"
 URL = f'https://github.com/pfython/{NAME}'
 HERE = pathlib.Path(__file__).parent
-VERSION = "0.11"
+VERSION = "0.12"
 
 
 setup(name = NAME,
@@ -19,7 +19,7 @@ setup(name = NAME,
       url = URL,
       download_url = f'{URL}/archive/{VERSION}.tar.gz',
       keywords = [NAME, "search", "video", "audio", "media", "AWSOM", "TV", "content", "manage", "organise", "organize", "Premiere", "Adobe", "Pymiere", "YouTube", "metadata", "workflow", "automation", "Creative Cloud", "edit", "editor", "editing"],
-      install_requires=['cleverdict'],
+      install_requires=['cleverdict>1.7'],
       # https://pypi.org/classifiers/
       classifiers=[
         'Development Status :: 3 - Alpha',
