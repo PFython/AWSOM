@@ -60,7 +60,7 @@ or to cover all bases...
    * New project Folder created on your main work hard drive.
    * All media and metadata copied to subfolder `XDROOT`.
    * All clips, thumbnails and XML files renamed to include the project name.
-   * MEDIAPRO.XML updated with new names.
+   * `MEDIAPRO.XML` updated with new names.
    * Your selected template .prproj file opened in Premiere Pro.
    * Template file save with new project name to new folder.
    * Rushes bin created if not already in the template.
