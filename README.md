@@ -84,7 +84,7 @@ https://pypi.org/project/cleverdict/
 
 The primary class used in `AWSOM` is `Project` which encapsulates all the control data used by the rest of the main program.
 
-Functions and methods are generally as 'atomic' as possible, i.e. one function generally does just one thing and is kept as short as reasonably possible.  The exception to this are *workflow functions* like `ingest()` which by their nature chain together potentially long sequences of individual functions, passing a `Project` object (or more than one, hypothetically) between them.
+Functions and methods are generally as 'atomic' as possible, i.e. one function generally does just one thing and is kept as short as reasonably possible.  The exception to this are *workflow functions* like `ingest()` which by their nature chain together potentially long sequences of individual functions, passing a `Project` object between them.
 
 
 
@@ -95,7 +95,7 @@ Please join our virtual team if you have an interest in video editing, productio
 Our preferred process for onboarding new contributors is as follows:
 
 1. Say hello to us on [Twitter](https://twitter.com/AppAwsom) initially so we can "put a face to the name".
-2. Fork this repository.
+2. Fork this repository.  Also **star** the repository for bonus karma!
 3. Create new branches with the following standardised names as required:
    * `cosmetic`: for reformatting and changes to comments, README, or user input/output e.g. print(), input() and GUI.
    * `enhancements`: for new features and extensions to old features
