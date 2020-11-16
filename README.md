@@ -8,18 +8,22 @@ automate the Adobe Creative Cloud video production workflow at
 [South West London TV]("https://www.southwestlondon.tv").
 
 This Python package contains a mixture of OS-independent Python scripts for managing
-common automation tasks such as renaming media files and making backups, as well
-as some exciting desktop automations built on top of the superb `Pymiere` library by
+common (desktop/LAN) automation tasks such as renaming media files and making backups, as well
+as some exciting automations built on top of the superb `Pymiere` library by
 [Quentin Masingarbe](https://github.com/qmasingarbe/pymiere).  Unfortunately
 `Pymiere` currently only works on **Windows 10**, so the corresponding `AWSOM`
 automations are limited to Windows users as well (for now).
 
 If you're interested in exploring the rest of the **AWSOM** toolkit, which is
 primarily aimed at serious YouTubers, video editors, and power-users of online
-video generally such as journalists, researchers, and teachers, please follow us
-on Twitter and start a conversation:
+video such as journalists, researchers, and teachers, please follow us on Twitter
+and start a conversation:
 
-> https://twitter.com/AppAwsom
+![Follow us on Twitter](https://cdn.exclaimer.com/Handbook%20Images/twitter-icon_square_64x64.png?_ga=2.206957524.690480154.1605528377-685225211.1605528377)
+
+https://twitter.com/AppAwsom
+
+
 
 Both this package and a snazzy new web version of `AWSOM` which we hope to launch soon provide a
 tonne of powerful features completely free, but certain 'Pro' features like
