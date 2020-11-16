@@ -1,8 +1,8 @@
 import pathlib
 from setuptools import setup
-from AWSOMdesktop import __version__
+from AWSOM import __version__
 
-NAME = "AWSOMdesktop"
+NAME = "AWSOM"
 URL = f'https://github.com/pfython/{NAME}'
 HERE = pathlib.Path(__file__).parent
 
