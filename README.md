@@ -7,7 +7,7 @@
 automate the Adobe Creative Cloud video production workflow at
 [South West London TV](https://www.southwestlondon.tv).
 
-This Python package contains a mixture of OS-independent Python scripts for managing
+This Python package contains a mixture of OS-independent scripts for managing
 common (desktop/LAN) automation tasks such as renaming media files and making backups, as well
 as some exciting automations built on top of the superb `Pymiere` library by
 [Quentin Masingarbe](https://github.com/qmasingarbe/pymiere).  Unfortunately
