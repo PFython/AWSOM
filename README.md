@@ -50,7 +50,9 @@ or to cover all bases...
     ```
 2. Follow the (beautiful PySimpleGui) prompts to give your project a name and category/prefix, and point it to a template `.pproj` file to copy from.
 
-![](".popup1.png")
+   ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup1.png)
+   ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup2.png)
+   ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup3.png)
 
 3. Go and have a cup of coffee, knowing that when you come back all the fiddly, non-creative, importy-draggy stuff will be done and you can get on with *actual* editing!
 
