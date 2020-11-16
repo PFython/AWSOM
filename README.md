@@ -82,7 +82,7 @@ https://pypi.org/project/cleverdict/
 
 `AWSOM` uses `pathlib` in preference to `os` wherever possible for handling files, directories, and drives.
 
-The primary class used in `AWSOM` is `Project` which encapsulates all the metadata control data used by the rest of the main script.
+The primary class used in `AWSOM` is `Project` which encapsulates all the control data used by the rest of the main program.
 
 Functions and methods are generally as 'atomic' as possible, i.e. one function generally does just one thing and is kept as short as reasonably possible.  The exception to this are *workflow functions* like `ingest()` which by their nature chain together potentially long sequences of individual functions, passing a `Project` object (or more than one, hypothetically) between them.
 
