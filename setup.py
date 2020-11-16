@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 NAME = "AWSOM"
 URL = f'https://github.com/pfython/{NAME}'
 HERE = pathlib.Path(__file__).parent
-VERSION = "0.12"
+VERSION = "0.13"
 
 
 setup(name = NAME,
