@@ -38,14 +38,51 @@ or to cover all bases...
 
 ## 3. BASIC USE
 
+The main workflow currently supported is for XDCAM footage commonly used with Sony video cameras.
+
+1. Connect and power on your camera/storage device
+
+    import AWSOM
+    ingest(from_device=True)
+
 ## 10. UNDER THE BONNET
 
-`AWSOM` makes use of `CleverDict`, a handy custom data type which allows
+None of `AWSOM`'s automations for `Adobe Premiere Pro` would be possible without `Pymiere`.
+
+`AWSOM`'s library of choice for user interaction is `PySimpleGui` which creates beautiful looking popups, input windows and output displays with very few lines of code.  We think their documentation is really fun and accessible too which makes the learning-curve for newcomers really painless.
+
+
+Internally, `AWSOM` makes extensive use of `CleverDict`, a handy custom data type which allows
 developers to flexibly switch between Python dictionary `{key: value}` notation
 and `object.attribute` notation.  For more information about `CleverDict` see:
 https://pypi.org/project/cleverdict/
 
+`AWSOM` uses `pathlib` in preference to `os` wherever possible for handling files, directories, and drives.
+
+The primary class used in `AWSOM` is `Project` which encapsulates all the metadata control data used by the rest of the main script.
+
+Functions and methods are generally as 'atomic' as possible, i.e. one function generally does just one thing and is kept as short as reasonably possible.  The exception to this are *workflow functions* like `ingest()` which by their nature chain together potentially long sequences of individual functions, passing a `Project` object (or more than one, hypothetically) between them.
+
+
+
 ## 11. CONTRIBUTING
 
-## 12. CREDITS
+Please join our virtual team if you have an interest in video editing, production, workflow automation or simply have an idea for improving this package.  We're particularly keen to connect with anyone who can help us make `Pymiere` work on other Operating Systems and folk already active in the Adobe/Premiere/ExtendScript space or working on tools for Speech Recognition, Subtitles, Media Content Management, and online video generally (especially but not only YouTube).  We're also on the lookout for professional help with UX/UI design and all things HTML/CSS to take our web app version of `AWSOM` to the next level.
+
+Our preferred process for onboarding new contributors is as follows:
+
+1. Say hello to us on [Twitter](https://twitter.com/AppAwsom) initially so we can "put a face to the name".
+2. Fork this repository.
+3. Create new branches with the following standardised names as required:
+   * `cosmetic`: for reformatting and changes to comments, README, or user input/output e.g. print(), input() and GUI.
+   * `enhancements`: for new features and extensions to old features
+   * `refactoring`: for better ways to code existing features
+   * `tests`: for new or better test cases
+   * `bugfix`: for solutions to existing issues
+   * `miscellaneous`: for anything else
+4. We're a naively zealous fan of *Test Driven Development*, so please start by creating a separate `test_xyz.py` script for any coding changes, and document your tests (and any new code) clearly enough that they'll tell us everything we need to know about your rationale and implementation approach.
+5. When you're ready and any new code passes all your/our tests, create a *Pull Request* from one of your branches (above) back to the `main` branch of this repository.
+
+If you'd be kind enough to follow that approach it will speed things on their way and cause less brain-ache for us, thanks!
+
 

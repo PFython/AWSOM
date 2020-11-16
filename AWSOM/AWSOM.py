@@ -1,8 +1,8 @@
 __version__ = "0.1"
 
-import pymiere
-from pymiere import wrappers
-from pymiere import exe_utils
+# import pymiere
+# from pymiere import wrappers
+# from pymiere import exe_utils
 import datetime
 import functools
 import time
@@ -11,19 +11,9 @@ import win32api
 import shutil
 from cleverdict import CleverDict  # powerful dictionary/attribute switching
 import PySimpleGUI as sg  # fast and easy GUI creation
+from .AWSOM_config import *
 
 sg.change_look_and_feel('DarkPurple4')  # Match the GUI with Premiere colours
-
-WORK_IN_PROGRESS = Path("E:\\")  # Main working drive/folder for video editing
-TEMPLATE = Path(r"D:\Pete's Data\OneDrive\SWLTV Editing Templates\SWL.TV Template v4\SWL.TV Template cc4.1.prproj")
-PROJECT_TYPES = {"SWLTV - ": "Project intended for YouTube channel SWL.TV",
-                 "WBC - ": "White Label project for Wandsworth Borough Council",
-                 "Project - ": "Other project not intended for publishing",
-                 "Pod - ": "Breakfast TV style interviews in 'The Pod'"}
-ICON = "logo.ico"
-DEFAULT_BIN_NAME = "Rushes (Unsorted)"
-DEFAULT_RUSHES_SEQUENCE = "Rushes/Teaser"
-EXCLUDE_DRIVES = "BCDEFHLPW"  # Attached drives, never a source to import media
 
 def timer(func):
     """
@@ -273,14 +263,15 @@ def get_all_input_for_ingest():
     return project
 
 @timer
-def ingest():
+def ingest(from_device=False):
     """
     A typical workflow to speed up the ingest process, from copying new media
     from a connected device, right up to having Premiere Pro open and ready for
     actual editing to start.
     """
     project = get_all_input_for_ingest()
-    copy_media_from_device(project)
+    if from_device:
+        copy_media_from_device(project)
     project.get_format()
     rename_media(project)
     create_prproj_from_template(project)
