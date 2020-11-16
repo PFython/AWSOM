@@ -31,7 +31,7 @@ a registered account with us or them to access on a pay-per-use basis.
 
 ## 2. INSTALLATION
 
-Very lightweight with only two dependencies: `cleverdict` and `pymiere`.
+Very lightweight installation with only three dependencies: `pymiere`, `cleverdict` and `pysimplegui`.
 
     pip install AWSOM
 
