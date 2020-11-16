@@ -38,8 +38,7 @@ or to cover all bases...
     python -m pip install AWSOM --upgrade --user
 
 ## 3. BASIC USE
-
-The main workflow currently supported is for XDCAM footage commonly used with Sony video cameras.
+`AWSOM` currently supports XDCAM footage (commonly used with Sony video cameras).  More formats will be added soon, or feel free to get involved and contribute one!
 
 1. Connect and power on your camera/storage device
 
@@ -53,7 +52,7 @@ The main workflow currently supported is for XDCAM footage commonly used with So
 
 
 
-## 10. UNDER THE BONNET
+## 4. UNDER THE BONNET
 
 None of `AWSOM`'s automations for `Adobe Premiere Pro` would be possible without `Pymiere`.
 
@@ -73,7 +72,7 @@ Functions and methods are generally as 'atomic' as possible, i.e. one function g
 
 
 
-## 11. CONTRIBUTING
+## 5. CONTRIBUTING
 
 Please join our virtual team if you have an interest in video editing, production, workflow automation or simply have an idea for improving this package.  We're particularly keen to connect with anyone who can help us make `Pymiere` work on other Operating Systems and folk already active in the Adobe/Premiere/ExtendScript space or working on tools for Speech Recognition, Subtitles, Media Content Management, and online video generally (especially but not only YouTube).  We're also on the lookout for professional help with UX/UI design and all things HTML/CSS to take our web app version of `AWSOM` to the next level.
 
