@@ -45,15 +45,15 @@ or to cover all bases...
 1. Connect and power on your camera/storage device, then open up your Python interpreter/IDE:
 
     ```
-    import AWSOM
-    AWSOM.ingest(from_device=True)
+    import AWSOM import ingest
+    ingest(from_device=True)
     ```
 2. Follow the (beautiful `PySimpleGui`) prompts to give your project a name and category/prefix, and point it to a template `.prproj` file to copy from.
 
    ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup1.png)
-   
+
    ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup2.png)
-   
+
    ![](https://raw.githubusercontent.com/PFython/AWSOM/main/popup3.png)
 
 3. Go and have a cup of coffee, knowing that when you come back all the fiddly, non-creative, importy-draggy stuff will be done and you can get on with *actual* editing!

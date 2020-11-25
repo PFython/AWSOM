@@ -1,8 +1,9 @@
 __version__ = "0.1"
 
-# import pymiere
-# from pymiere import wrappers
-# from pymiere import exe_utils
+import os
+import pymiere
+from pymiere import wrappers
+from pymiere import exe_utils
 import datetime
 import functools
 import time
@@ -18,7 +19,7 @@ sg.change_look_and_feel('DarkPurple4')  # Match the GUI with Premiere colours
 def timer(func):
     """
     Starts the clock, runs func(), stops the clock. Simples.
-    Designed to work as a decorator... just put @timer in front of
+    Designed to work as a decorator... just put # @timer in front of
     the original function.
     """
     # Preserve __doc__ and __name__ information of the main function
@@ -87,7 +88,7 @@ class Project(CleverDict):
         self.thumbnail_path = self.path / "XDROOT/Thmbnl"
         self.metadata_path = self.path / "XDROOT/MEDIAPRO.XML"
 
-@timer
+# @timer
 def search_for_XDCAM_media(project):
     """
     Searches for connected devices with XDCAM media.
@@ -104,7 +105,7 @@ def search_for_XDCAM_media(project):
             if len(list(possible_source[0].glob("*.mxf"))):
                 project.sources += possible_source
 
-@timer
+# @timer
 def copy_media_from_device(project):
     """
     TODO:
@@ -148,7 +149,7 @@ def get_new_path(path, index, title, rule = "SWL.TV #1"):
     # If all else fails, return original path
     return path
 
-@timer
+# @timer
 def rename_media(project):
     """
     Renames individual clips according to rules e.g.
@@ -191,7 +192,7 @@ def create_global_shortcuts():
     app = pymiere.objects.app
     ProjectItem = pymiere.ProjectItem
 
-@timer
+# @timer
 def create_prproj_from_template(project):
     """
     Launches Premiere Pro if not already running;
@@ -208,7 +209,7 @@ def create_prproj_from_template(project):
         app.openDocument(str(project.template_path))
         app.project.saveAs(str(project.prproj_path))
 
-@timer
+# @timer
 def import_clips_to_bin(project):
     """
     Imports Clips from .clip_path to a new bin named as DEFAULT_BIN_NAME
@@ -241,7 +242,7 @@ def create_rushes_sequence(project):
     # in your Premiere Pro install folder under:
     # Adobe Premiere Pro 2020\Settings\SequencePresets
 
-@timer
+# @timer
 def insert_clips_in_rushes_sequence(project):
     """
     Insert all Clips from DEFAULT_BIN_NAME into Sequence DEFAULT_RUSHES_SEQUENCE
@@ -251,7 +252,7 @@ def insert_clips_in_rushes_sequence(project):
         current_time = app.project.activeSequence.getPlayerPosition()
         app.project.activeSequence.insertClip(media[0], current_time, 0, 0)
 
-@timer
+# @timer
 def get_all_input_for_ingest():
     """
     Use PySimpleGUI popups to get all user input up front, thereby allowing
@@ -262,7 +263,7 @@ def get_all_input_for_ingest():
     project.prproj_path = project.path / (project.title + ".prproj")
     return project
 
-@timer
+# @timer
 def ingest(from_device=False):
     """
     A typical workflow to speed up the ingest process, from copying new media
@@ -270,6 +271,10 @@ def ingest(from_device=False):
     actual editing to start.
     """
     project = get_all_input_for_ingest()
+    try:
+        os.mkdir(project.path)
+    except FileExistsError:
+        print(f"Folder already exists: {project.path}")
     if from_device:
         copy_media_from_device(project)
     project.get_format()
