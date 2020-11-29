@@ -12,7 +12,7 @@ import win32api
 import shutil
 from cleverdict import CleverDict  # powerful dictionary/attribute switching
 import PySimpleGUI as sg  # fast and easy GUI creation
-from .AWSOM_config import *
+from AWSOM_config import *
 
 sg.change_look_and_feel('DarkPurple4')  # Match the GUI with Premiere colours
 
@@ -104,6 +104,23 @@ def search_for_XDCAM_media(project):
         if possible_source:
             if len(list(possible_source[0].glob("*.mxf"))):
                 project.sources += possible_source
+
+def copy_from_other_source(project):
+    """ Prompts to copy from another folder e.g. downloads """
+    # TODO: Get clever shortcut to user/downloads
+    project.get_format()  # Premature/redundant?
+    # TODO: reuse search_for_XDCAM_media(project)
+    # Also search for .srt
+    other_sources =sg.popup_get_file("Please any other files to copy to new project folder", default_path="", multiple_files=True, icon=ICON,) # file_types=(("Premiere Pro", "*.prproj"),))
+    if other_sources:
+        other_sources = [Path(x) for x in other_sources.split(";")]
+        if not hasattr(project, "clips"):
+            project.clips = []
+        suffixes = ".mxf .mov .mp4 .avi .mp2".split()
+        project.clips.extend([x for x in other_sources if x.suffixes])
+        for source in other_sources:
+            print(f"Copying media from {source.parent} to {project.path.with_name(source.name)}")
+            shutil.copy(source, project.prproj_path.with_name(source.name))
 
 # @timer
 def copy_media_from_device(project):
@@ -214,7 +231,13 @@ def import_clips_to_bin(project):
     """
     Imports Clips from .clip_path to a new bin named as DEFAULT_BIN_NAME
     """
-    project.clips = list(project.clip_path.glob("*.mxf"))
+    project.clips = []
+    # TODO reuse search_for_XDCAM media?
+    for extension in ".mxf .mov .mp4 .avi .mp2".split():
+        project.clips += list(project.clip_path.glob(f"*{extension}"))
+        if project.format == "XDCAM":
+            # Navigate above \XDROOT\Clips to parent folder and search
+            project.clips += list(project.clip_path.parent.parent.glob(f"*{extension}"))
     root = app.project.rootItem
     ProjectItem.createBin(root, DEFAULT_BIN_NAME)
     project.default_bin = [x for x in root.children if x.type == 2 and x.name == DEFAULT_BIN_NAME][0]
@@ -277,8 +300,11 @@ def ingest(from_device=False):
         print(f"Folder already exists: {project.path}")
     if from_device:
         copy_media_from_device(project)
+    else:
+        copy_from_other_source(project)
     project.get_format()
-    rename_media(project)
+    if from_device:
+        rename_media(project)
     create_prproj_from_template(project)
     import_clips_to_bin(project)
     create_rushes_sequence(project)
@@ -287,3 +313,6 @@ def ingest(from_device=False):
     # import_subtitles_to_bin(project)
     # add_subtitles_to_rushes(project)
     # send_rushes_to_media_encoder(project)
+
+if __name__ == "__main__":
+    ingest()
