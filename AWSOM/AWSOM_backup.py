@@ -57,13 +57,11 @@ def copy_WIP():
         directories = len([x for x in os.listdir(source) if (Path(source)/x).is_dir()])
         print(f"{files} (top level) files | {directories} (top level) directories\n")
         try:
-            shutil.copytree(source, destination)
-            print(f"ⓘ Copied everything in {source} to\n  {destination}\n")
+            _copytree(source, destination)
         except FileExistsError:
             os.makedirs(destination, exist_ok = True)
             _check_for_essential_files(source, destination)
     print(f"\n✓ Work In Progress backed up ({WORK_IN_PROGRESS} -> {RECENT_WORK})")
-
 
 def get_file_hash(file_list):
     """
@@ -107,23 +105,76 @@ def _check_for_essential_files(source, destination):
             if not up_to_date or not in_destination:
                 shutil.copy(file, destination / file.name)
                 shutil.copystat(file, destination / file.name)
-                print(f"ⓘ Copied: {file.name} to\n  {destination}\n")
+                print(f"ⓘ   Copied: {file.name} to\n    {destination}\n")
 
+def archive_folder(archive_type="swltv", source=None, overwrite=True):
+    """
+    Check WORK_IN_PROGRESS for master of source and backup if required
+    Copy source to Archive (Local Drive)
+    Copy source to NAS
+    Delete source
+    """
+    # Check WORK_IN_PROGRESS for master of source
+    drive, *parts = source.parts
+    # This filter is specific to user's folder structure.  Change as required!
+    if "Videos" in parts:
+        parts.remove("Videos")
+    wip = Path(WORK_IN_PROGRESS).joinpath(*parts)
+    if drive != wip.anchor:
+        if wip.exists()
+            copy_WIP()
+            _rmtree(wip)
 
-def archive_folder(archive_type = "swltv", folder = None):
-    """
-    Copy folder to Archive (Local Drive)
-    Copy folder to NAS
-    Delete folder
-    """
     archive_drive = {"swltv": ARCHIVE1,
+                     "wbc": ARCHIVE1,
                      "project": ARCHIVE2,
                      "police": ARCHIVE3,
                      "military": ARCHIVE3}[archive_type]
-    if folder is None:
-        for folder in WORK_FOLDERS:
-            pass
-    return "Not yet implemented"
+    if source is None:
+        source = Path(sg.popup_get_folder("",
+                      no_window=True,
+                      initial_folder=RECENT_WORK,
+                      keep_on_top=True))
+    destination = Path(archive_drive).joinpath(*parts)
+    # Backup up to Archive Drive
+    if not _copytree(source, destination, overwrite=overwrite):
+        return  # If unsuccessful, break before deleting source
+    # Backup key projects to NAS as well
+    if archive_type in "swltv wbc project":
+        nas_path = Path(NAS).joinpath(*parts)
+        if not _copytree(source, nas_path, overwrite=overwrite):
+            return  # If unsuccessful, break before deleting source
+    # Delete source after confirmation
+    _rmtree(source)
+
+def _copytree(source, destination, **kwargs):
+    """
+    Copies all folders, subfolders, and files & returns True if successful.
+    If folder already exists, prompts to overwrite if kwargs[overwrite] == True
+    otherwise fails at that point and returns False.
+    """
+    try:
+        result = shutil.copytree(source, destination)
+        print(f"\nⓘ   Copied everything in {source} to\n    {result}")
+    except FileExistsError:
+        if kwargs.get("overwrite"):
+            if _rmtree(destination):  # i.e. if successful
+                _copytree(source, destination, overwrite=True)
+            else:
+                return False
+    return True
+
+def _rmtree(source):
+    """
+    Deletes all folders, subfolders, and files after confirmation.
+    Returns True if successful.
+    """
+    i=input(f"{source} already exists.\n\n⚠  Completely remove?")
+    if i != "Yes":
+        return False
+    shutil.rmtree(source)
+    print(f"\n⚠   Completely removed {source}")
+    return True
 
 def rename_folder(old = None, new = None):
     """
@@ -131,8 +182,8 @@ def rename_folder(old = None, new = None):
     """
     if old is None:
         old = Path(sg.popup_get_folder("",
-                                       default_path="DATA (D:)",
                                        no_window=True,
+                                       initial_folder=RECENT_WORK,
                                        keep_on_top=True)).name
         if not old:
             print("> No directory selected.")
