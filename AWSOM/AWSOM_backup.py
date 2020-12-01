@@ -65,7 +65,7 @@ def copy_WIP():
     print(f"\n✓ Work In Progress backed up ({WORK_IN_PROGRESS} -> {RECENT_WORK})")
 
 
-def _get_file_hash(file_list):
+def get_file_hash(file_list):
     """
     Gets an MD5 Hash value for each file in a list.
     Returns a dictionary of {file: hash} items
@@ -193,7 +193,8 @@ input = _sg_input
 print = sg.Print
 sg.change_look_and_feel('DarkAmber')
 sg.set_options(message_box_line_width=80, debug_win_size=(80,30))
-print(do_not_reroute_stdout=False, keep_on_top = True)  # Redirect stdout and stderr to Debug Window
+# Redirect stdout and stderr to Debug Window
+print(do_not_reroute_stdout=False, keep_on_top = True)
 
 FOLDERS = {k.split(":")[0]: get_folders(k) for k in LOCATIONS}
 FOLDERS['NAS'] = FOLDERS.pop(NAS)
