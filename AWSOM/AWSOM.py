@@ -154,8 +154,6 @@ def copy_media_from_device(project):
             print("Please be patient...")
             shutil.copytree(source.parent, project.clip_path.parent)
 
-
-
 def get_new_path(path, index, title, rule = "SWL.TV #1"):
     """
     Returns a new filepath based on the preferred formatting rule
@@ -305,6 +303,30 @@ def ingest(from_device=False):
     project.get_format()
     if from_device:
         rename_media(project)
+    create_prproj_from_template(project)
+    import_clips_to_bin(project)
+    create_rushes_sequence(project)
+    insert_clips_in_rushes_sequence(project)
+    app.project.save()
+    # import_subtitles_to_bin(project)
+    # add_subtitles_to_rushes(project)
+    # send_rushes_to_media_encoder(project)
+
+
+def from_url():
+    """
+    A typical workflow to speed up the ingest process, from copying new media
+    from an existing folder, right up to having Premiere Pro open and ready for
+    actual editing to start.
+    """
+    #TODO: download from YouTube
+    project = get_all_input_for_ingest()
+    try:
+        os.mkdir(project.path)
+    except FileExistsError:
+        print(f"Folder already exists: {project.path}")
+    copy_from_other_source(project)
+    project.get_format()
     create_prproj_from_template(project)
     import_clips_to_bin(project)
     create_rushes_sequence(project)
