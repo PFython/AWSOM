@@ -56,11 +56,8 @@ def copy_WIP():
         files = len([x for x in os.listdir(source) if (Path(source)/x).is_file()])
         directories = len([x for x in os.listdir(source) if (Path(source)/x).is_dir()])
         print(f"{files} (top level) files | {directories} (top level) directories\n")
-        try:
-            _copytree(source, destination)
-        except FileExistsError:
-            os.makedirs(destination, exist_ok = True)
-            _check_for_essential_files(source, destination)
+        _copytree(source, destination)
+        _check_for_essential_files(source, destination)
     print(f"\n✓ Work In Progress backed up ({WORK_IN_PROGRESS} -> {RECENT_WORK})")
 
 def get_file_hash(file_list):
@@ -121,7 +118,7 @@ def archive_folder(archive_type="swltv", source=None, overwrite=True):
         parts.remove("Videos")
     wip = Path(WORK_IN_PROGRESS).joinpath(*parts)
     if drive != wip.anchor:
-        if wip.exists()
+        if wip.exists():
             copy_WIP()
             _rmtree(wip)
 
@@ -241,11 +238,11 @@ def _sg_input(text, **kwargs):
 _input = input
 _print = print
 input = _sg_input
-print = sg.Print
+# print = sg.Print
 sg.change_look_and_feel('DarkAmber')
 sg.set_options(message_box_line_width=80, debug_win_size=(80,30))
 # Redirect stdout and stderr to Debug Window
-print(do_not_reroute_stdout=False, keep_on_top = True)
+# print(do_not_reroute_stdout=False, keep_on_top = True)
 
 FOLDERS = {k.split(":")[0]: get_folders(k) for k in LOCATIONS}
 FOLDERS['NAS'] = FOLDERS.pop(NAS)
