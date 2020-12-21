@@ -119,7 +119,7 @@ def copy_from_other_source(project):
         suffixes = ".mxf .mov .mp4 .avi .mp2".split()
         project.clips.extend([x for x in other_sources if x.suffixes])
         for source in other_sources:
-            print(f"Copying media from {source.parent} to {project.path.with_name(source.name)}")
+            print(f"Copying media from {source.parent} to {project.path / source.name}")
             shutil.copy(source, project.prproj_path.with_name(source.name))
 
 # @timer
@@ -281,7 +281,7 @@ def get_all_input_for_ingest():
     """
     project = Project()
     project.template_path = Path(sg.popup_get_file("Please select a Premiere Pro project to open", default_path=TEMPLATE, icon=ICON, file_types=(("Premiere Pro", "*.prproj"),)))
-    project.prproj_path = project.path / (project.title + ".prproj")
+    project.prproj_path = project.dirpath / (project.title + ".prproj")
     return project
 
 # @timer
@@ -293,9 +293,9 @@ def ingest(from_device=False):
     """
     project = get_all_input_for_ingest()
     try:
-        os.mkdir(project.path)
+        os.mkdir(project.dirpath)
     except FileExistsError:
-        print(f"Folder already exists: {project.path}")
+        print(f"Folder already exists: {project.dirpath}")
     if from_device:
         copy_media_from_device(project)
     else:
@@ -322,9 +322,9 @@ def from_url():
     #TODO: download from YouTube
     project = get_all_input_for_ingest()
     try:
-        os.mkdir(project.path)
+        os.mkdir(project.dirpath)
     except FileExistsError:
-        print(f"Folder already exists: {project.path}")
+        print(f"Folder already exists: {project.dirpath}")
     copy_from_other_source(project)
     project.get_format()
     create_prproj_from_template(project)
