@@ -1,18 +1,120 @@
-__version__ = "0.1"
-
-import os
-import pymiere
-from pymiere import wrappers
+from AWSOM_config import *
+from cleverdict import CleverDict  # powerful dictionary/attribute switching
+from pathlib import Path
 from pymiere import exe_utils
+from pymiere import wrappers
 import datetime
 import functools
-import time
-from pathlib import Path
-import win32api
-import shutil
-from cleverdict import CleverDict  # powerful dictionary/attribute switching
+import os
+import pymiere
+import pyperclip
 import PySimpleGUI as sg  # fast and easy GUI creation
-from AWSOM_config import *
+import shutil
+import sys
+import time
+import win32api
+import youtube_dl
+from AWSOM_ffmpeg import file_to_mp4
+
+def safe_characters(filename):
+    """
+    Converts special characters e.g. from YouTube Video titles to 'safe' filenames (initially Windows 10)
+    """
+    characters = {"|": "_", '"': "'", ":": " -", "@": "", "#": "", "?": ""}
+    for old, new in characters.items():
+        filename = filename.replace(old, new)
+    return filename
+
+def ytdl(url, options={'download' : True}):
+    """
+    Call YouTube_DL with options using developer defaults.
+    Return dictionary of downloaded information and any errors
+    """
+    options.update({'quiet': False, 'keepvideo': False, 'verbose': False})
+    with youtube_dl.YoutubeDL(options) as ydl:
+        video = ydl.extract_info(url, options)
+    return (video)
+
+def rename_media_download(media,_download_info, path):
+    """
+    YTDL Filename reformatted to: title[format][AV][youtube id]
+    e.g. 'Trend - Tie Dye[1080][AV][ILYlXtDGw2o]'
+
+    [AV] confirms both Audio and Video tracks are included
+    """
+    tracks=""
+    if [x for x in _download_info if x['acodec'] != 'none'][0]:
+        tracks += "A" # Media has Audio track
+    if [x for x in _download_info if x['vcodec'] != 'none'][0]:
+        tracks += "V" # Media has Video track
+    if media['extractor'] in ["youtube", "facebook",]:
+        title = media['title']
+        id = media['id']
+        height = media['height']
+    elif media['extractor'] in ["bbc", "instagram", "linkedin", "twitter",]:
+        # BBC news downloads appear to always be playlists
+        title = media['entries'][0]['title']
+        id = media['entries'][0]['id']
+        height = media['entries'][0]['height']
+    title = safe_characters(title)
+    # Need to include a suffix so any '.' in the main title isn't
+    # misinterpreted as being a suffix.
+    assumed_filepath = path / Path(f"{title}-{id}.mkv")
+    new_filepath = path / Path(f"{title}[{height}][{tracks}][{id}].mkv")
+    for suffix in ['.mkv','.mp4','.webm']:
+        try:
+            new_filepath = new_filepath.with_suffix(suffix)
+            assumed_filepath = assumed_filepath.with_suffix(suffix)
+            try:
+                os.rename(assumed_filepath,new_filepath)
+            except FileExistsError:
+                os.remove(assumed_filepath)
+            break
+        except FileNotFoundError: # using .mp4 as suffix
+            continue
+    if suffix != '.mp4':
+        file_to_mp4(new_filepath)
+    media['download_path'] = new_filepath.with_suffix('.mp4')
+    media['download_date'] = datetime.datetime.now()
+    return media
+
+def DL(url):
+    """
+    Entry point for YouTube-DL wrapper. Download best audio and video streams
+    using youtube-dl and merge in .mkv .mp4 or .webm using FFMEG.
+
+    Returns metadata in youtube-dl format.  See:
+    https://www.bogotobogo.com/VideoStreaming/YouTube/youtube-dl-embedding.php
+
+    Seems to work for youtube playlists, channels and searches,
+    live streaming (some sites), Facebook, Twitter, LinkedIn, Instagram too!
+    """
+    path = Path(WORK_IN_PROGRESS) # Convert any strings to Path objects
+    os.chdir(path)
+    print(f"\n* Saving to {path}\n")
+    # TODO: add pre-download check for existing (renamed) .mp4 video
+    filename_format = str(path) +'/%(title)s-%(id)s.%(ext)s'
+    options = {'format': 'bestvideo+bestaudio',
+               'outtmpl': filename_format,
+               'download': True,
+               }
+    try:
+        media = ytdl(url, options)
+    except Exception as E:
+        if "ERROR: requested format not available" in str(E):
+            print("\n* Retrying download with default settings...")
+            media = ytdl(url, {'download': True})
+        else:
+            media = {}
+    _download_info = ""
+    if media.get('extractor') in ["youtube"]:
+        _download_info = media['requested_formats']
+    elif media.get('extractor') in ["bbc"]:
+        # Some extractors appear to start with a playlist
+        _download_info = media['entries'][0]['requested_formats']
+    if _download_info:
+        media = rename_media_download(media, _download_info, path)
+    return media
 
 sg.change_look_and_feel('DarkPurple4')  # Match the GUI with Premiere colours
 
@@ -198,7 +300,6 @@ def rename_media(project):
             file.write(metadata)
     project.media_renamed_on = datetime.datetime.now()
 
-
 def create_global_shortcuts():
     """
     Creates shortcuts for common Pymiere objects for developer convenience.
@@ -274,12 +375,12 @@ def insert_clips_in_rushes_sequence(project):
         app.project.activeSequence.insertClip(media[0], current_time, 0, 0)
 
 # @timer
-def get_all_input_for_ingest():
+def get_all_input_for_ingest(**kwargs):
     """
     Use PySimpleGUI popups to get all user input up front, thereby allowing
     automation to proceed without later steps pausing for user input.
     """
-    project = Project()
+    project = Project(kwargs.get('title'))
     project.template_path = Path(sg.popup_get_file("Please select a Premiere Pro project to open", default_path=TEMPLATE, icon=ICON, file_types=(("Premiere Pro", "*.prproj"),)))
     project.prproj_path = project.dirpath / (project.title + ".prproj")
     return project
@@ -313,18 +414,20 @@ def ingest(from_device=False):
     # send_rushes_to_media_encoder(project)
 
 
-def from_url():
+def from_url(url=None):
     """
     A typical workflow to speed up the ingest process, from copying new media
     from an existing folder, right up to having Premiere Pro open and ready for
     actual editing to start.
     """
-    #TODO: download from YouTube
-    project = get_all_input_for_ingest()
+    url = r"https://www.youtube.com/watch?v=1UYb37pOl1E&feature=youtu.be"
+    media = CleverDict(DL(url))
+    project = get_all_input_for_ingest(title=media.title)
     try:
         os.mkdir(project.dirpath)
     except FileExistsError:
         print(f"Folder already exists: {project.dirpath}")
+    media.download_path.rename(project.dirpath/media.download_path.name)
     copy_from_other_source(project)
     project.get_format()
     create_prproj_from_template(project)
