@@ -48,7 +48,7 @@ class Project(CleverDict):
         self.title = title.replace('"',"_") or "None"  # validate filename
         self.created_on = datetime.datetime.now()
         self.get_project_type()  # creates .folder_prefix and .type
-        self.path = WORK_IN_PROGRESS / (self.folder_prefix + self.title)
+        self.dirpath = WORK_IN_PROGRESS / (self.folder_prefix + self.title)
         print(self)
         Project.index += [self]
 
@@ -78,15 +78,15 @@ class Project(CleverDict):
 
     def get_format(self):
         """
-        Scans self.path for media files (TODO) and sets best-guess format.
+        Scans self.dirpath for media files (TODO) and sets best-guess format.
         Creates .format in-place.
         """
         if hasattr(self, "format"):
             return
         self.format = "XDCAM"
-        self.clip_path = self.path / "XDROOT/Clip"
-        self.thumbnail_path = self.path / "XDROOT/Thmbnl"
-        self.metadata_path = self.path / "XDROOT/MEDIAPRO.XML"
+        self.clip_path = self.dirpath / "XDROOT/Clip"
+        self.thumbnail_path = self.dirpath / "XDROOT/Thmbnl"
+        self.metadata_path = self.dirpath / "XDROOT/MEDIAPRO.XML"
 
 # @timer
 def search_for_XDCAM_media(project):
@@ -119,7 +119,7 @@ def copy_from_other_source(project):
         suffixes = ".mxf .mov .mp4 .avi .mp2".split()
         project.clips.extend([x for x in other_sources if x.suffixes])
         for source in other_sources:
-            print(f"Copying media from {source.parent} to {project.path / source.name}")
+            print(f"Copying media from {source.parent} to {project.dirpath / source.name}")
             shutil.copy(source, project.prproj_path.with_name(source.name))
 
 # @timer
@@ -212,7 +212,7 @@ def create_prproj_from_template(project):
     """
     Launches Premiere Pro if not already running;
     Prompts to open a template .prpoj file;
-    Saves the .prproj file with a path based on .title and .path
+    Saves the .prproj file with a path based on .title and .dirpath
     """
     # Start Premiere Pro and open the selected project
     if not exe_utils.exe_is_running("adobe premiere pro.exe")[0]:
